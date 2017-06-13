@@ -35,12 +35,12 @@ var connector = useEmulator ? new builder.ChatConnector() : new botbuilder_azure
 });
 
 function queryDatabase(session,builder){
-	builder.Prompts.text(session, "Reading rows from the Table");
+	session.send(session, "Reading rows from the Table");
     // Read all rows from table
     request = new Request(
         "SELECT TOP 1 pc.Name as CategoryName, p.name as ProductName FROM [SalesLT].[ProductCategory] pc JOIN [SalesLT].[Product] p ON pc.productcategoryid = p.productcategoryid",
         function(err, rowCount, rows) {
-		builder.Prompts.text(session, rowCount);
+		session.send(session, rowCount);
 
         }
     );
