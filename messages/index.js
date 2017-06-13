@@ -18,41 +18,10 @@ var config = {
   server: 'gmiinterview.database.windows.net', // update me
   port: 1433,
   options: {
-      database: 'GMIINTERVIEW' //update me
+      database: 'gmiinterview' //update me
   }
 }
 
-function getCustomers(session) {
- 
- // Create connection instance
- var conn = new sql.Connection(config);
-
- conn.connect()
- // Successfull connection
- .then(function () {
-session.send("I am jagan");
-   // Create request instance, passing in connection instance
-   var req = new sql.Request(conn);
-
-   // Call mssql's query method passing in params
-   req.query("SELECT * FROM [SalesLT].[Customer]")
-   .then(function (recordset) {
-     console.log(recordset);
-     conn.close();
-   })
-   // Handle sql statement execution errors
-   .catch(function (err) {
-     session.send(err);
-     conn.close();
-   })
-
- })
- // Handle connection errors
- .catch(function (err) {
-   console.log(err);
-   conn.close();
- });
-}
 
 
  
@@ -67,10 +36,6 @@ var connector = useEmulator ? new builder.ChatConnector() : new botbuilder_azure
 
 var bot = new builder.UniversalBot(connector, [
     function (session, args, next) {
-	 
-	    
-       
-		getCustomers(session);
 		// sql.connect(con, function (err) {
 
 			// if (err) session.send(err);
