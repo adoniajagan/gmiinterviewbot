@@ -14,7 +14,7 @@ var Request = require('tedious').Request;
 
 var config = {
   userName: 'gmi', // update me
-  password: '', // update me
+  password: 'sa@12345', // update me
   server: 'gmiinterview.database.windows.net',
   database: 'gmiinterview',
   options: {
