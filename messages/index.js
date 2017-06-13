@@ -76,8 +76,8 @@ function queryDatabase(session,builder){
 var bot = new builder.UniversalBot(connector, [
     function (session, args, next) {
 	sql.connect(con, function (err) {
-	session.send("select * from Student");
-    if (err) console.log(err);
+	
+    if (err) session.send(" err " + err);
 
     // create Request objectS
   
