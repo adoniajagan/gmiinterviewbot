@@ -44,7 +44,6 @@ function queryDatabase(session){
     connection.execSql(request);
 }
 
-
   
  
 var useEmulator = (process.env.NODE_ENV == 'development');
@@ -63,24 +62,8 @@ var bot = new builder.UniversalBot(connector, [
 		if (err) {
 
 				 session.send(err);
-		}
-		else{
-			queryDatabase(session)
-      
-		}
-		});
-        session.send("I am jagan");
-		// sql.connect(con, function (err) {
-
-			// if (err) session.send(err);
-			// var request = new sql.Request();
-			// request.query('select * from SalesLT.UserLog', function (err, recordset) {
-				// if (err) session.send(err)
-					// session.send(recordset);
-				// });
-			// });
-
-        
+				   session.send("I am jagan");
+	
         if (!session.userData.name) {
             // Ask user for their name
             builder.Prompts.text(session, "Hello... What's your name?");
@@ -88,6 +71,13 @@ var bot = new builder.UniversalBot(connector, [
             // Skip to next step
         next();
         }
+		}
+		else{
+			queryDatabase(session)
+      
+		}
+		});
+      
     },
     function (session, results) {
         // Update name if answered
