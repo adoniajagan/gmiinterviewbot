@@ -56,6 +56,7 @@ function queryDatabase(session,builder){
 }
 var bot = new builder.UniversalBot(connector, [
     function (session, args, next) {
+	session.send("GMI");
 		// sql.connect(con, function (err) {
 
 			// if (err) session.send(err);
