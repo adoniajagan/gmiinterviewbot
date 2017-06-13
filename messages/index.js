@@ -23,7 +23,7 @@ var config = {
 }
 
 
-
+var connection = new Connection(config);
  
 var useEmulator = (process.env.NODE_ENV == 'development');
 
@@ -50,6 +50,14 @@ var bot = new builder.UniversalBot(connector, [
         if (!session.userData.name) {
             // Ask user for their name
             builder.Prompts.text(session, "Hello... What's your name?");
+			connection.on('connect', function(err) {
+			if (err) {
+				 builder.Prompts.text(session, err);
+			}
+			else{
+				queryDatabase()
+			}
+		 });
         } else {
             // Skip to next step
         next();
