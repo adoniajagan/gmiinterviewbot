@@ -30,15 +30,15 @@ var connector = useEmulator ? new builder.ChatConnector() : new botbuilder_azure
 var bot = new builder.UniversalBot(connector, [
     function (session, args, next) {
         session.send("I am jagan");
-		sql.connect(con, function (err) {
+		// sql.connect(con, function (err) {
 
-			if (err) session.send(err);
-			var request = new sql.Request();
-			request.query('select * from SalesLT.UserLog', function (err, recordset) {
-				if (err) session.send(err)
-					session.send(recordset);
-				});
-			});
+			// if (err) session.send(err);
+			// var request = new sql.Request();
+			// request.query('select * from SalesLT.UserLog', function (err, recordset) {
+				// if (err) session.send(err)
+					// session.send(recordset);
+				// });
+			// });
 
         
         if (!session.userData.name) {
