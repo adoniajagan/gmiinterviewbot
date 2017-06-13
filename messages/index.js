@@ -22,7 +22,7 @@ var config = {
   }
 }
 
-function getCustomers() {
+function getCustomers(session) {
  session.send("I am jagan");
  // Create connection instance
  var conn = new sql.Connection(config);
