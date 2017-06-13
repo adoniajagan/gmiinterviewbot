@@ -35,7 +35,7 @@ var connector = useEmulator ? new builder.ChatConnector() : new botbuilder_azure
 });
 
 function queryDatabase(session,builder){
-	session.send(session, "Reading rows from the Table");
+	session.send("Reading rows from the Table");
     // Read all rows from table
     request = new Request(
         "SELECT TOP 1 pc.Name as CategoryName, p.name as ProductName FROM [SalesLT].[ProductCategory] pc JOIN [SalesLT].[Product] p ON pc.productcategoryid = p.productcategoryid",
