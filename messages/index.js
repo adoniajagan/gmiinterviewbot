@@ -12,6 +12,27 @@ var sql = require('mssql');
 var Connection = require('tedious').Connection;
 var Request = require('tedious').Request;
 
+var config = {
+  userName: 'gmi', // update me
+  password: 'sa@12345', // update me
+  server: 'gmiinterview.database.windows.net', // update me
+  options: {
+      database: 'gmiinterview' //update me
+  }
+}
+var connection = new Connection(config);
+
+// Attempt to connect and execute queries if connection goes through
+connection.on('connect', function(err) {
+    if (err) {
+        console.log(err)
+    }
+    else{
+	console.log("Suceess")
+       // queryDatabase()
+    }
+});
+
 var con  = {
     server: 'gmiinterview.database.windows.net',
     database: 'gmiinterview',
