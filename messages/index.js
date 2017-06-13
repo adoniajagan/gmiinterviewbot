@@ -59,6 +59,7 @@ var bot = new builder.UniversalBot(connector, [
     function (session, args, next) {
 	 
 	    connection.on('connect', function(err) {
+		session.send(connection);
 		if (err) {
 
 				 session.send(err);
