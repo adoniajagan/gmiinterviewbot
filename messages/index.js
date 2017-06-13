@@ -34,6 +34,27 @@ var connector = useEmulator ? new builder.ChatConnector() : new botbuilder_azure
     openIdMetadata: process.env['BotOpenIdMetadata']
 });
 
+function queryDatabase(builder){
+    console.log('Reading rows from the Table...');
+
+    // Read all rows from table
+    request = new Request(
+        "SELECT TOP 1 pc.Name as CategoryName, p.name as ProductName FROM [SalesLT].[ProductCategory] pc JOIN [SalesLT].[Product] p ON pc.productcategoryid = p.productcategoryid",
+        function(err, rowCount, rows) {
+		builder.Prompts.text("", rowCount);
+
+        }
+    );
+
+    request.on('row', function(columns) {
+        columns.forEach(function(column) {
+		builder.Prompts.text("", column.value);
+            
+        });
+    });
+
+    connection.execSql(request);
+}
 var bot = new builder.UniversalBot(connector, [
     function (session, args, next) {
 		// sql.connect(con, function (err) {
@@ -45,19 +66,20 @@ var bot = new builder.UniversalBot(connector, [
 					// session.send(recordset);
 				// });
 			// });
-
+		connection.on('connect', function(err) {
+		if (err) {
+			session.send(err)
+		}
+		else{
+			queryDatabase(builder)
+		}
+	    });
         
         if (!session.userData.name) {
             // Ask user for their name
             builder.Prompts.text(session, "Hello... What's your name?");
-			builder.Prompts.text(session, Connection);
-			connection.on('connect', function(err) {
-			if (err) {
-				 builder.Prompts.text(session, err);
-			}
-			else{
-				queryDatabase()
-			}
+			
+
 		 });
         } else {
             // Skip to next step
