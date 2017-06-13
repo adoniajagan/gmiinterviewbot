@@ -18,26 +18,14 @@ var config = {
   server: 'gmiinterview.database.windows.net', // update me
   port: 1433,
   options: {
+	  encrypt : true,
       database: 'gmiinterview' //update me
   }
 }
 
 var sql = require('mssql');
-// var con  = {
-    // server: '192.168.10.15\\MSSQL2012',
-    // database: 'BJAGAN',
-    // user: 'widgetuser',
-    // password: 'SA@1234'
-	
-// };
-var con  = {
-    server: 'gmiinterview.database.windows.net',
-    database: 'gmiinterview',
-    user: 'gmi',
-    password: 'sa@12345',
-	encrypt : true
-	
-};
+
+
 
 
 
@@ -76,13 +64,14 @@ function queryDatabase(session,builder){
 }
 var bot = new builder.UniversalBot(connector, [
     function (session, args, next) {
-	sql.connect(con, function (err) {
+	sql.connect(config, function (err) {
 	
     if (err) session.send(" err " + err);
 
     // create Request objectS
   
 	var request = new sql.Request();
+	session.send(" select * from Student ");
     request.query('select * from Student', function (err, recordset) {
 
         if (err) console.log(err)
