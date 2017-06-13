@@ -21,38 +21,39 @@ var config = {
       database: 'GMIINTERVIEW' //update me
   }
 }
-var connection = new Connection(config);
 
-// Attempt to connect and execute queries if connection goes through
-  connection.on('connect', function(err) {
-		if (err) {
+function getCustomers() {
+ session.send("I am jagan");
+ // Create connection instance
+ var conn = new sql.Connection(config);
 
-				 session.send(err);
-		}
-		else{
-			queryDatabase(session)
-      
-		}
-		});
-function queryDatabase(session){
-    session.send('Reading rows from the Table...');
+ conn.connect()
+ // Successfull connection
+ .then(function () {
 
-    // Read all rows from table
-    request = new Request(
-        "SELECT TOP 1 pc.Name as CategoryName, p.name as ProductName FROM [SalesLT].[ProductCategory] pc JOIN [SalesLT].[Product] p ON pc.productcategoryid = p.productcategoryid",
-        function(err, rowCount, rows) {
-            session.send(rowCount + ' row(s) returned');
-        }
-    );
+   // Create request instance, passing in connection instance
+   var req = new sql.Request(conn);
 
-    request.on('row', function(columns) {
-        columns.forEach(function(column) {
-            session.send("%s\t%s", column.metadata.colName, column.value);
-        });
-    });
+   // Call mssql's query method passing in params
+   req.query("SELECT * FROM [SalesLT].[Customer]")
+   .then(function (recordset) {
+     console.log(recordset);
+     conn.close();
+   })
+   // Handle sql statement execution errors
+   .catch(function (err) {
+     console.log(err);
+     conn.close();
+   })
 
-    connection.execSql(request);
+ })
+ // Handle connection errors
+ .catch(function (err) {
+   console.log(err);
+   conn.close();
+ });
 }
+
 
  
 var useEmulator = (process.env.NODE_ENV == 'development');
@@ -67,8 +68,9 @@ var connector = useEmulator ? new builder.ChatConnector() : new botbuilder_azure
 var bot = new builder.UniversalBot(connector, [
     function (session, args, next) {
 	 
-	  
-        session.send("I am jagan");
+	    
+       
+		getCustomers(session);
 		// sql.connect(con, function (err) {
 
 			// if (err) session.send(err);
