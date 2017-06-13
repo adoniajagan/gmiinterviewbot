@@ -42,7 +42,7 @@ session.send("I am jagan");
    })
    // Handle sql statement execution errors
    .catch(function (err) {
-     console.log(err);
+     session.send(err);
      conn.close();
    })
 
