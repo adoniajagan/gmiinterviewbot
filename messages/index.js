@@ -50,6 +50,7 @@ var bot = new builder.UniversalBot(connector, [
         if (!session.userData.name) {
             // Ask user for their name
             builder.Prompts.text(session, "Hello... What's your name?");
+			builder.Prompts.text(session, connection);
 			connection.on('connect', function(err) {
 			if (err) {
 				 builder.Prompts.text(session, err);
