@@ -29,10 +29,28 @@ connection.on('connect', function(err) {
     }
     else{
 	console.log("Suceess")
-       // queryDatabase()
+      
     }
 });
+function queryDatabase(session){
+    session.send('Reading rows from the Table...');
 
+    // Read all rows from table
+    request = new Request(
+        "SELECT TOP 1 pc.Name as CategoryName, p.name as ProductName FROM [SalesLT].[ProductCategory] pc JOIN [SalesLT].[Product] p ON pc.productcategoryid = p.productcategoryid",
+        function(err, rowCount, rows) {
+            session.send(rowCount + ' row(s) returned');
+        }
+    );
+
+    request.on('row', function(columns) {
+        columns.forEach(function(column) {
+            session.send("%s\t%s", column.metadata.colName, column.value);
+        });
+    });
+
+    connection.execSql(request);
+}
 var con  = {
     server: 'gmiinterview.database.windows.net',
     database: 'gmiinterview',
@@ -54,6 +72,7 @@ var connector = useEmulator ? new builder.ChatConnector() : new botbuilder_azure
 
 var bot = new builder.UniversalBot(connector, [
     function (session, args, next) {
+	  queryDatabase(session)
         session.send("I am jagan");
 		// sql.connect(con, function (err) {
 
