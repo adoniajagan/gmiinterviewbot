@@ -23,40 +23,17 @@ var config = {
 var connection = new Connection(config);
 
 // Attempt to connect and execute queries if connection goes through
-
-
-
-  
- 
-var useEmulator = (process.env.NODE_ENV == 'development');
-
-var connector = useEmulator ? new builder.ChatConnector() : new botbuilder_azure.BotServiceConnector({
-    appId: process.env['MicrosoftAppId'],
-    appPassword: process.env['MicrosoftAppPassword'],
-    stateEndpoint: process.env['BotStateEndpoint'],
-    openIdMetadata: process.env['BotOpenIdMetadata']
-});
-
-var bot = new builder.UniversalBot(connector, [
-    function (session, args, next) {
-	 
-	    connection.on('connect', function(err) {
-		session.send(connection);
+  connection.on('connect', function(err) {
 		if (err) {
 
 				 session.send(err);
-				   session.send("I am jagan");
-	
-        if (!session.userData.name) {
-            // Ask user for their name
-            builder.Prompts.text(session, "Hello... What's your name?");
-        } else {
-            // Skip to next step
-        next();
-        }
 		}
 		else{
-			function queryDatabase(){
+			queryDatabase(session)
+      
+		}
+		});
+function queryDatabase(session){
     session.send('Reading rows from the Table...');
 
     // Read all rows from table
@@ -75,10 +52,40 @@ var bot = new builder.UniversalBot(connector, [
 
     connection.execSql(request);
 }
-      
-		}
-		});
-      
+
+ 
+var useEmulator = (process.env.NODE_ENV == 'development');
+
+var connector = useEmulator ? new builder.ChatConnector() : new botbuilder_azure.BotServiceConnector({
+    appId: process.env['MicrosoftAppId'],
+    appPassword: process.env['MicrosoftAppPassword'],
+    stateEndpoint: process.env['BotStateEndpoint'],
+    openIdMetadata: process.env['BotOpenIdMetadata']
+});
+
+var bot = new builder.UniversalBot(connector, [
+    function (session, args, next) {
+	 
+	  
+        session.send("I am jagan");
+		// sql.connect(con, function (err) {
+
+			// if (err) session.send(err);
+			// var request = new sql.Request();
+			// request.query('select * from SalesLT.UserLog', function (err, recordset) {
+				// if (err) session.send(err)
+					// session.send(recordset);
+				// });
+			// });
+
+        
+        if (!session.userData.name) {
+            // Ask user for their name
+            builder.Prompts.text(session, "Hello... What's your name?");
+        } else {
+            // Skip to next step
+        next();
+        }
     },
     function (session, results) {
         // Update name if answered
