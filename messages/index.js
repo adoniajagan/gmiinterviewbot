@@ -43,13 +43,7 @@ function queryDatabase(session){
 
     connection.execSql(request);
 }
-var con  = {
-    server: 'gmiinterview.database.windows.net',
-    database: 'gmiinterview',
-    user: 'gmi',
-    password: 'sa@12345'
-	
-};
+
 
   
  
