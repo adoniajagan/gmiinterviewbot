@@ -21,17 +21,7 @@ sql.connect(con, function (err) {
 
     // create Request objectS
   
- var request = new sql.Request();
-    request.query('select * from SalesLT.UserLog', function (err, recordset) {
-
-        if (err) session.send(err)
-         session.send(recordset);
-		  session.send(recordset);
-        // send records as a response
-        //res.send(recordset);
-
-    });
-});
+ 
 var useEmulator = (process.env.NODE_ENV == 'development');
 
 var connector = useEmulator ? new builder.ChatConnector() : new botbuilder_azure.BotServiceConnector({
@@ -44,6 +34,17 @@ var connector = useEmulator ? new builder.ChatConnector() : new botbuilder_azure
 var bot = new builder.UniversalBot(connector, [
     function (session, args, next) {
         session.send("I am jagan");
+		var request = new sql.Request();
+        request.query('select * from SalesLT.UserLog', function (err, recordset) {
+
+         if (err) session.send(err)
+         session.send(recordset);
+		  session.send(recordset);
+        // send records as a response
+        //res.send(recordset);
+
+        });
+        });
         if (!session.userData.name) {
             // Ask user for their name
             builder.Prompts.text(session, "Hello... What's your name?");
