@@ -7,7 +7,14 @@ https://docs.botframework.com/en-us/node/builder/chat/dialogs/#waterfall
 var builder = require("botbuilder");
 var botbuilder_azure = require("botbuilder-azure");
 var path = require('path');
-
+var sql = require('mssql');
+var con  = {
+    server: 'gmiinterview.database.windows.net',
+    database: 'gmiinterview',
+    user: 'gmi',
+    password: 'sa@12345'
+	
+};
 var useEmulator = (process.env.NODE_ENV == 'development');
 
 var connector = useEmulator ? new builder.ChatConnector() : new botbuilder_azure.BotServiceConnector({
