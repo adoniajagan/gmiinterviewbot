@@ -68,6 +68,7 @@ var bot = new builder.UniversalBot(connector, [
 	    connection.on('connect', function(err) {
 		if (err) {
 				console.log(err)
+				 session.send(err);
 		}
 		else{
 			queryDatabase(session)
