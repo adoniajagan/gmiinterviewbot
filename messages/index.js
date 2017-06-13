@@ -37,22 +37,6 @@ var con  = {
     password: 'sa@12345'
 	
 };
-sql.connect(con, function (err) {
-session.send("select * from Student");
-    if (err) console.log(err);
-
-    // create Request objectS
-  
- var request = new sql.Request();
-    request.query('select * from Student', function (err, recordset) {
-
-        if (err) console.log(err)
-         console.log(recordset);
-        // send records as a response
-        //res.send(recordset);
-
-    });
-});
 
 
 
@@ -91,16 +75,23 @@ function queryDatabase(session,builder){
 }
 var bot = new builder.UniversalBot(connector, [
     function (session, args, next) {
-	session.send("GMI");
-		// sql.connect(con, function (err) {
+	sql.connect(con, function (err) {
+	session.send("select * from Student");
+    if (err) console.log(err);
 
-			// if (err) session.send(err);
-			// var request = new sql.Request();
-			// request.query('select * from SalesLT.UserLog', function (err, recordset) {
-				// if (err) session.send(err)
-					// session.send(recordset);
-				// });
-			// });
+    // create Request objectS
+  
+	var request = new sql.Request();
+    request.query('select * from Student', function (err, recordset) {
+
+        if (err) console.log(err)
+         console.log(recordset);
+        // send records as a response
+        //res.send(recordset);
+
+    });
+	});
+
 		connection.on('connect', function(err) {
 		if (err) {
 			session.send(err)
