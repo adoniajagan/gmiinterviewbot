@@ -15,11 +15,7 @@ var con  = {
     password: 'sa@12345'
 	
 };
-sql.connect(con, function (err) {
 
-    if (err) console.log(err);
-
-    // create Request objectS
   
  
 var useEmulator = (process.env.NODE_ENV == 'development');
@@ -34,8 +30,15 @@ var connector = useEmulator ? new builder.ChatConnector() : new botbuilder_azure
 var bot = new builder.UniversalBot(connector, [
     function (session, args, next) {
         session.send("I am jagan");
-		var request = new sql.Request();
-        request.query('select * from SalesLT.UserLog', function (err, recordset) {});
+		sql.connect(con, function (err) {
+
+			if (err) session.send(err);
+			var request = new sql.Request();
+			request.query('select * from SalesLT.UserLog', function (err, recordset) {
+				if (err) session.send(err)
+					session.send(recordset);
+				});
+			});
 
         
         if (!session.userData.name) {
