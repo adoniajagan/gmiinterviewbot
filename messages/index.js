@@ -8,6 +8,10 @@ var builder = require("botbuilder");
 var botbuilder_azure = require("botbuilder-azure");
 var path = require('path');
 var sql = require('mssql');
+
+var Connection = require('tedious').Connection;
+var Request = require('tedious').Request;
+
 var con  = {
     server: 'gmiinterview.database.windows.net',
     database: 'gmiinterview',
