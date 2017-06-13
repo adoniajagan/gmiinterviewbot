@@ -22,6 +22,41 @@ var config = {
   }
 }
 
+var sql = require('mssql');
+// var con  = {
+    // server: '192.168.10.15\\MSSQL2012',
+    // database: 'BJAGAN',
+    // user: 'widgetuser',
+    // password: 'SA@1234'
+	
+// };
+var con  = {
+    server: 'gmiinterview.database.windows.net',
+    database: 'gmiinterview',
+    user: 'gmi',
+    password: 'sa@12345'
+	
+};
+sql.connect(con, function (err) {
+session.send("select * from Student");
+    if (err) console.log(err);
+
+    // create Request objectS
+  
+ var request = new sql.Request();
+    request.query('select * from Student', function (err, recordset) {
+
+        if (err) console.log(err)
+         console.log(recordset);
+        // send records as a response
+        //res.send(recordset);
+
+    });
+});
+
+
+
+
 
 var Connection = new Connection(config);
  
