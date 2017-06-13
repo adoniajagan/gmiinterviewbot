@@ -34,7 +34,8 @@ var con  = {
     server: 'gmiinterview.database.windows.net',
     database: 'gmiinterview',
     user: 'gmi',
-    password: 'sa@12345'
+    password: 'sa@12345',
+	encrypt : true
 	
 };
 
