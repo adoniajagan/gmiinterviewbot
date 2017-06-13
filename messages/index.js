@@ -78,9 +78,7 @@ var bot = new builder.UniversalBot(connector, [
         if (!session.userData.name) {
             // Ask user for their name
             builder.Prompts.text(session, "Hello... What's your name?");
-			
 
-		 });
         } else {
             // Skip to next step
         next();
