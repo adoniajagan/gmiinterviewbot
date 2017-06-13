@@ -17,7 +17,7 @@ var config = {
   password: 'sa@12345', // update me
   server: 'gmiinterview.database.windows.net', // update me
   options: {
-      database: 'gmiinterview' //update me
+      database: 'GMIINTERVIEW' //update me
   }
 }
 var connection = new Connection(config);
