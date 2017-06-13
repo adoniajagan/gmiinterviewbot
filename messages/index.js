@@ -37,14 +37,7 @@ var bot = new builder.UniversalBot(connector, [
 		var request = new sql.Request();
         request.query('select * from SalesLT.UserLog', function (err, recordset) {
 
-         if (err) session.send(err)
-         session.send(recordset);
-		  session.send(recordset);
-        // send records as a response
-        //res.send(recordset);
-
-        });
-        });
+        
         if (!session.userData.name) {
             // Ask user for their name
             builder.Prompts.text(session, "Hello... What's your name?");
