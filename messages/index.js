@@ -23,14 +23,14 @@ var config = {
 }
 
 function getCustomers(session) {
- session.send("I am jagan");
+ 
  // Create connection instance
  var conn = new sql.Connection(config);
 
  conn.connect()
  // Successfull connection
  .then(function () {
-
+session.send("I am jagan");
    // Create request instance, passing in connection instance
    var req = new sql.Request(conn);
 
