@@ -24,25 +24,7 @@ var connection = new Connection(config);
 
 // Attempt to connect and execute queries if connection goes through
 
-function queryDatabase(session){
-    session.send('Reading rows from the Table...');
 
-    // Read all rows from table
-    request = new Request(
-        "SELECT TOP 1 pc.Name as CategoryName, p.name as ProductName FROM [SalesLT].[ProductCategory] pc JOIN [SalesLT].[Product] p ON pc.productcategoryid = p.productcategoryid",
-        function(err, rowCount, rows) {
-            session.send(rowCount + ' row(s) returned');
-        }
-    );
-
-    request.on('row', function(columns) {
-        columns.forEach(function(column) {
-            session.send("%s\t%s", column.metadata.colName, column.value);
-        });
-    });
-
-    connection.execSql(request);
-}
 
   
  
@@ -74,7 +56,25 @@ var bot = new builder.UniversalBot(connector, [
         }
 		}
 		else{
-			queryDatabase(session)
+			function queryDatabase(){
+    session.send('Reading rows from the Table...');
+
+    // Read all rows from table
+    request = new Request(
+        "SELECT TOP 1 pc.Name as CategoryName, p.name as ProductName FROM [SalesLT].[ProductCategory] pc JOIN [SalesLT].[Product] p ON pc.productcategoryid = p.productcategoryid",
+        function(err, rowCount, rows) {
+            session.send(rowCount + ' row(s) returned');
+        }
+    );
+
+    request.on('row', function(columns) {
+        columns.forEach(function(column) {
+            session.send("%s\t%s", column.metadata.colName, column.value);
+        });
+    });
+
+    connection.execSql(request);
+}
       
 		}
 		});
