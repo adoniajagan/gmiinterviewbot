@@ -23,15 +23,7 @@ var config = {
 var connection = new Connection(config);
 
 // Attempt to connect and execute queries if connection goes through
-connection.on('connect', function(err) {
-    if (err) {
-        console.log(err)
-    }
-    else{
-	console.log("Suceess")
-      
-    }
-});
+
 function queryDatabase(session){
     session.send('Reading rows from the Table...');
 
@@ -72,7 +64,16 @@ var connector = useEmulator ? new builder.ChatConnector() : new botbuilder_azure
 
 var bot = new builder.UniversalBot(connector, [
     function (session, args, next) {
-	  queryDatabase(session)
+	 
+	    connection.on('connect', function(err) {
+		if (err) {
+				console.log(err)
+		}
+		else{
+			queryDatabase(session)
+      
+		}
+		});
         session.send("I am jagan");
 		// sql.connect(con, function (err) {
 
