@@ -15,6 +15,23 @@ var con  = {
     password: 'sa@12345'
 	
 };
+sql.connect(con, function (err) {
+
+    if (err) console.log(err);
+
+    // create Request objectS
+  
+ var request = new sql.Request();
+    request.query('select * from SalesLT.UserLog', function (err, recordset) {
+
+        if (err) session.send(err)
+         session.send(recordset);
+		  session.send(recordset);
+        // send records as a response
+        //res.send(recordset);
+
+    });
+});
 var useEmulator = (process.env.NODE_ENV == 'development');
 
 var connector = useEmulator ? new builder.ChatConnector() : new botbuilder_azure.BotServiceConnector({
