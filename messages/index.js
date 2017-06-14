@@ -80,8 +80,13 @@ var bot = new builder.UniversalBot(connector, [
 			session.send(recordset);
 		}
         else{
-		session.send("2");
 			session.send(recordset);
+			request = new Request("SELECT TOP 1 pc.Name as CategoryName, p.name as ProductName FROM [SalesLT].[ProductCategory] pc JOIN [SalesLT].[Product] p ON pc.productcategoryid = p.productcategoryid",
+			function(err, rowCount, rows) {
+				session.send("2");
+				session.send(rowCount);
+			}
+    );
 		}
 
     });
