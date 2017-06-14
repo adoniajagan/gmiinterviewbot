@@ -72,19 +72,21 @@ var bot = new builder.UniversalBot(connector, [
     // create Request objectS
   
 	var request = new sql.Request();
-	session.send(" select * from Student ");
-    request.query('select * from Student', function (err, recordset) {
 
-        if (err) console.log(err)
-         console.log(recordset);
-        // send records as a response
-        //res.send(recordset);
+    request.query('select * from SalesLT.UserLog', function (err, recordset) {
+
+        if (err){
+			session.send(recordset);
+		}
+        else{
+			session.send(recordset);
+		}
 
     });
 	});
 
 		connection.on('connect', function(err) {
-		if (err) {
+		if (err != null) {
 			session.send(err)
 		}
 		else{
