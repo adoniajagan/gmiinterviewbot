@@ -79,7 +79,7 @@ var bot = new builder.UniversalBot(connector, [
 
 
 						}).catch(function (err) {
-
+						session.send("Insert err " + err);
 					});
     request.query('SELECT TOP 1 pc.Name as CategoryName, p.name as ProductName FROM [SalesLT].[ProductCategory] pc JOIN [SalesLT].[Product] p ON pc.productcategoryid = p.productcategoryid', function (err, recordset,rowCount, rows) {
 		session.send(config.user);
