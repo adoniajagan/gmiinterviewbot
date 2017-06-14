@@ -43,7 +43,7 @@ var connector = useEmulator ? new builder.ChatConnector() : new botbuilder_azure
 });
 
 function queryDatabase(session,builder){
-
+	var request = new sql.Request();
 	session.send("Reading rows from the Table");
     // Read all rows from table
     request = new Request(
@@ -68,7 +68,7 @@ var bot = new builder.UniversalBot(connector, [
 	sql.connect(config, function (err) {
 	
     if (err) session.send(" err " + err);
-
+	queryDatabase(session,builder);
     // create Request objectS
   
 	var request = new sql.Request();
@@ -84,6 +84,7 @@ var bot = new builder.UniversalBot(connector, [
 			session.send("2");
 			
 			session.send(rowCount);
+			
 		}
     });
 	});
