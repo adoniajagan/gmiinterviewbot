@@ -73,14 +73,7 @@ var bot = new builder.UniversalBot(connector, [
     // create Request objectS
   
 	var request = new sql.Request();
-     var request1 = new sql.Request();
-					request1.query("Insert into [SalesLT].[UserLog] (UserInput,Result) values ('jagan','13000')")
-					.then(function () {
-
-
-						}).catch(function (err) {
-						session.send("Insert err " + err);
-					});
+    
     request.query('SELECT TOP 1 pc.Name as CategoryName, p.name as ProductName FROM [SalesLT].[ProductCategory] pc JOIN [SalesLT].[Product] p ON pc.productcategoryid = p.productcategoryid', function (err, recordset,rowCount, rows) {
 		session.send(config.user);
         if (err){
@@ -109,6 +102,14 @@ var bot = new builder.UniversalBot(connector, [
         // Update name if answered
         if (results.response) {
             session.userData.name = results.response;
+			 var request1 = new sql.Request();
+					request1.query("Insert into [SalesLT].[UserLog] (UserInput,Result) values ('"+results.response+"','13000')")
+					.then(function () {
+
+
+						}).catch(function (err) {
+						session.send("Insert err " + err);
+					});
         }
 
         // Greet the user
