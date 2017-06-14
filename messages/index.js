@@ -67,27 +67,24 @@ var bot = new builder.UniversalBot(connector, [
     function (session, args, next) {
 	sql.connect(config, function (err) {
 	
-    if (err) session.send(" err " + err);
+    if (err) //session.send(" err " + err);
 	
 	
     // create Request objectS
   
 	var request = new sql.Request();
     
-    request.query('SELECT TOP 1 pc.Name as CategoryName, p.name as ProductName FROM [SalesLT].[ProductCategory] pc JOIN [SalesLT].[Product] p ON pc.productcategoryid = p.productcategoryid', function (err, recordset,rowCount, rows) {
-		session.send(config.user);
-        if (err){
-			session.send("1");
-			session.send(recordset);
-		}
-        else{
-			session.send(recordset);
-			session.send("2");
+    // request.query('SELECT TOP 1 pc.Name as CategoryName, p.name as ProductName FROM [SalesLT].[ProductCategory] pc JOIN [SalesLT].[Product] p ON pc.productcategoryid = p.productcategoryid', function (err, recordset,rowCount, rows) {
+		// session.send(config.user);
+        // if (err){
+			// session.send(recordset);
+		// }
+        // else{
+			// session.send(recordset);
+			// session.send(rowCount);
 			
-			session.send(rowCount);
-			
-		}
-    });
+		// }
+    // });
 	});
         if (!session.userData.name) {
             // Ask user for their name
@@ -113,7 +110,7 @@ var bot = new builder.UniversalBot(connector, [
         }
 
         // Greet the user
-        session.send("Hi jagan %s!", session.userData.name);
+        session.send("Hi %s!", session.userData.name);
        
     }
    
