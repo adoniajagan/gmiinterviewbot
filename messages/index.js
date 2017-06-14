@@ -72,13 +72,8 @@ var bot = new builder.UniversalBot(connector, [
     // create Request objectS
   
 	var request = new sql.Request();
-    request = new Request("SELECT TOP 1 pc.Name as CategoryName, p.name as ProductName FROM [SalesLT].[ProductCategory] pc JOIN [SalesLT].[Product] p ON pc.productcategoryid = p.productcategoryid",
-			function(err, rowCount, rows) {
-				session.send("2");
-				session.send(rowCount);
-			}
-    );
-    request.query('SELECT TOP 1 pc.Name as CategoryName, p.name as ProductName FROM [SalesLT].[ProductCategory] pc JOIN [SalesLT].[Product] p ON pc.productcategoryid = p.productcategoryid', function (err, recordset) {
+
+    request.query('SELECT TOP 1 pc.Name as CategoryName, p.name as ProductName FROM [SalesLT].[ProductCategory] pc JOIN [SalesLT].[Product] p ON pc.productcategoryid = p.productcategoryid', function (err, recordset,rowCount, rows) {
 		session.send(config.user);
         if (err){
 			session.send("1");
@@ -86,9 +81,9 @@ var bot = new builder.UniversalBot(connector, [
 		}
         else{
 			session.send(recordset);
-			
+			session.send("2");
+			session.send(rowCount);
 		}
-
     });
 	});
         if (!session.userData.name) {
