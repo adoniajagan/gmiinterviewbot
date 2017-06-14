@@ -65,9 +65,6 @@ function queryDatabase(session,builder){
 }
 var bot = new builder.UniversalBot(connector, [
     function (session, args, next) {
-	sql.connect(config, function (err) {
-	
-    if (err) session.send(" err " + err);
 	connection.on('connect', function(err) {
     if (err) {
        session.send(" err 1" + err);
@@ -76,6 +73,10 @@ var bot = new builder.UniversalBot(connector, [
        queryDatabase(session,builder);
       }
 	});
+	sql.connect(config, function (err) {
+	
+    if (err) session.send(" err " + err);
+	
 	
     // create Request objectS
   
