@@ -65,14 +65,6 @@ function queryDatabase(session,builder){
 }
 var bot = new builder.UniversalBot(connector, [
     function (session, args, next) {
-	connection.on('connect', function(err) {
-    if (err) {
-       session.send(" err 1" + err);
-    }
-    else{
-       queryDatabase(session,builder);
-      }
-	});
 	sql.connect(config, function (err) {
 	
     if (err) session.send(" err " + err);
@@ -81,7 +73,14 @@ var bot = new builder.UniversalBot(connector, [
     // create Request objectS
   
 	var request = new sql.Request();
+     var request1 = new sql.Request();
+					request1.query("Insert into UserLog (UserInput,Result) values ('jagan','13000')")
+					.then(function () {
 
+
+						}).catch(function (err) {
+
+					});
     request.query('SELECT TOP 1 pc.Name as CategoryName, p.name as ProductName FROM [SalesLT].[ProductCategory] pc JOIN [SalesLT].[Product] p ON pc.productcategoryid = p.productcategoryid', function (err, recordset,rowCount, rows) {
 		session.send(config.user);
         if (err){
