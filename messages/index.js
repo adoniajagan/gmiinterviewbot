@@ -82,7 +82,7 @@ var bot = new builder.UniversalBot(connector, [
         else{
 			session.send(recordset);
 			session.send("2");
-			builder.Prompts.text(session, rowCount);
+			
 			session.send(rowCount);
 		}
     });
