@@ -82,7 +82,11 @@ var bot = new builder.UniversalBot(connector, [
         else{
 			session.send(recordset);
 			session.send("2");
-			session.send(rowCount);
+			 request.on('row', function(columns) {
+			 columns.forEach(function(column) {
+			 builder.Prompts.text("", column.value);
+            
+        });
 		}
     });
 	});
