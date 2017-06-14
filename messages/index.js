@@ -74,7 +74,7 @@ var bot = new builder.UniversalBot(connector, [
   
 	var request = new sql.Request();
      var request1 = new sql.Request();
-					request1.query("Insert into UserLog (UserInput,Result) values ('jagan','13000')")
+					request1.query("Insert into [SalesLT].[UserLog] (UserInput,Result) values ('jagan','13000')")
 					.then(function () {
 
 
