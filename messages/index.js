@@ -76,9 +76,11 @@ var bot = new builder.UniversalBot(connector, [
     request.query('SELECT TOP 1 pc.Name as CategoryName, p.name as ProductName FROM [SalesLT].[ProductCategory] pc JOIN [SalesLT].[Product] p ON pc.productcategoryid = p.productcategoryid', function (err, recordset) {
 		session.send(config.user);
         if (err){
+			session.send("1");
 			session.send(recordset);
 		}
         else{
+		session.send("2");
 			session.send(recordset);
 		}
 
