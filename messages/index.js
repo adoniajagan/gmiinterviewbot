@@ -67,14 +67,14 @@ var bot = new builder.UniversalBot(connector, [
     function (session, args, next) {
 	sql.connect(config, function (err) {
 	
-    if (err) session.send(config.userName);session.send(" err " + err);
+    if (err) session.send(" err " + err);
 
     // create Request objectS
   
 	var request = new sql.Request();
 
     request.query('select * from SalesLT.UserLog', function (err, recordset) {
-
+		session.send(config.user);
         if (err){
 			session.send(recordset);
 		}
@@ -84,16 +84,6 @@ var bot = new builder.UniversalBot(connector, [
 
     });
 	});
-
-		connection.on('connect', function(err) {
-		if (err != null) {
-			session.send(err)
-		}
-		else{
-			queryDatabase(session,builder)
-		}
-	    });
-        
         if (!session.userData.name) {
             // Ask user for their name
             builder.Prompts.text(session, "Hello... What's your name?");
