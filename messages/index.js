@@ -65,27 +65,7 @@ function queryDatabase(session,builder){
 }
 var bot = new builder.UniversalBot(connector, [
     function (session, args, next) {
-	sql.connect(config, function (err) {
-	
-    if (err) //session.send(" err " + err);
-	
-	
-    // create Request objectS
-  
-	var request = new sql.Request();
-    
-    // request.query('SELECT TOP 1 pc.Name as CategoryName, p.name as ProductName FROM [SalesLT].[ProductCategory] pc JOIN [SalesLT].[Product] p ON pc.productcategoryid = p.productcategoryid', function (err, recordset,rowCount, rows) {
-		// session.send(config.user);
-        // if (err){
-			// session.send(recordset);
-		// }
-        // else{
-			// session.send(recordset);
-			// session.send(rowCount);
-			
-		// }
-    // });
-	});
+
         if (!session.userData.name) {
             // Ask user for their name
             builder.Prompts.text(session, "Hello... What's your name?");
@@ -99,7 +79,10 @@ var bot = new builder.UniversalBot(connector, [
         // Update name if answered
         if (results.response) {
             session.userData.name = results.response;
-			 var request1 = new sql.Request();
+				sql.connect(config, function (err) {
+	
+				if (err) session.send(" err " + err);
+    		 var request1 = new sql.Request();
 					request1.query("Insert into [SalesLT].[UserLog] (UserInput,Result) values ('"+results.response+"','13000')")
 					.then(function () {
 
@@ -107,6 +90,8 @@ var bot = new builder.UniversalBot(connector, [
 						}).catch(function (err) {
 						session.send("Insert err " + err);
 					});
+			});
+	
         }
 
         // Greet the user
